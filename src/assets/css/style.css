@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+
+body {
+    font-family: "Open Sans" sans-serif;
+}
+
+h2 {
+    width: 100%;
+    font-size: 48px;
+    font-weight: 300;
+    font-variant-caps: all-petite-caps;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 56px;
+}
+
+/*Landing CSS*/
+.navigationBarContainer {
+    width: 100%;
+    height: 70px;
+    background: white;
+}
+
+.navbarContent li a h6 {
+    font-size: 16px;
+    font-weight: 700 !important;
+    font-variant-caps: all-petite-caps !important;
+}
+
+.heroContainer {
+    width: 100%;
+    position: relative;
+    color: white;
+    background-size: cover;
+    background: url("../images/herobg2.jpg") center no-repeat;
+    animation-name: animasiBg;
+    animation-duration: 50s;
+    animation-iteration-count: infinite;
+}
+
+.heroContainer h1 {
+    font-size: 76px;
+    letter-spacing: -1px;
+    font-weight: 300;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.heroContainer p {
+    letter-spacing: -1px;
+    font-weight: 600;
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.heroContainer span {
+    position: absolute;
+    bottom: 3%;
+    width: 100%;
+    font-weight: 300;
+    text-align: center;
+}
+
+.introContainer {
+    margin-top: 60px;
+    background: white;
+    margin-bottom: 120px;
+}
+
+.textLanding {
+    width: 100%;
+    text-align: justify;
+}
+
+.featuresLanding {
+    margin-bottom: 56px;
+}
+
+.cardFeatures {
+    padding: 16px;
+    min-height: 200px;
+    border-radius: 2px;
+    box-shadow: 0px 3px 7px rgba(158, 158, 158, 0.7);
+}
+
+.cardFeatures h4 {
+    text-align: center;
+    font-weight: 400;
+    font-variant-caps: all-petite-caps;
+    margin-bottom: 36px;
+}
+
+.cardFeatures p {
+    text-align: justify;
+    font-weight: 300;
+}
+
+@keyframes animasiBg {
+    0% {
+        background-size: 130%;
+    }
+    50% {
+        background-size: 100%;
+    }
+    100% {
+        background-size: 130%;
+    }
+}
+
+@media screen  and (max-width: 480px) {
+    .heroContainer p {
+        font-size: 16px;
+        letter-spacing: -1px;
+        width: 100%;
+        text-align: center;
+        font-weight: 600;
+        position: absolute;
+        top: 47%;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+
+    .heroContainer {
+        width: 100%;
+        position: relative;
+        color: white;
+        background-size: cover;
+        background: url("../images/herobg2.jpg") center no-repeat;
+        animation-name: none;
+        animation-duration: 0s;
+        animation-iteration-count: infinite;
+    }
+
+}
