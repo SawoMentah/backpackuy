@@ -3,6 +3,7 @@ import Navbar from "./Navbar/Navbar";
 import LandingHero from "./LandingSections/LandingHero";
 import LandingIntro from "./LandingSections/LandingIntro";
 import LandingFeatures from "./LandingSections/LandingFeatures";
+import LandingCarouselCity from "./LandingSections/LandingCarouselCity";
 
 class Landing extends Component {
     render() {
@@ -12,6 +13,7 @@ class Landing extends Component {
                 <Navbar/>
                 <LandingIntro/>
                 <LandingFeatures/>
+                <LandingCarouselCity/>
             </div>
         );
     }
