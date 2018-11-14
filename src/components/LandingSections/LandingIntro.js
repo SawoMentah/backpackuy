@@ -3,8 +3,6 @@ import {colors} from "../Constant/LandingConstant";
 import illustration1 from '../../assets/images/whatis.png'
 import posed from "react-pose";
 
-const height = "300px";
-
 const P = posed.p({
     enter: {x: 0, opacity: 1},
     exit: {x: -50, opacity: 0}

@@ -202,6 +202,9 @@ h2 {
     text-align: center;
 }
 
+.active a {
+    color: #fbc531 !important;
+}
 .footerContainer {
     padding-top: 32px;
     margin-top: 32px;
@@ -239,6 +242,10 @@ h2 {
 }
 
 /*Login Psge*/
+.textLogReg {
+    margin-top: 52px;
+    text-align: right;
+}
 .loginContainer {
 }
 

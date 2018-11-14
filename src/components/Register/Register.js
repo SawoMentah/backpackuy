@@ -3,8 +3,7 @@ import {BASE_URL, colors} from "../Constant/LandingConstant";
 import posed from 'react-pose';
 import Footer from "../Footer/Footer";
 import axios from 'axios';
-import {Link} from 'react-router-dom';
-
+import {Link} from "react-router-dom";
 
 const height = window.innerHeight - 230;
 const Form = posed.form({
@@ -19,12 +18,13 @@ const Header = posed.div({
     exit: {x: 50, opacity: 0}
 });
 
-class Login extends Component {
+class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: '',
             password: '',
+            fullname: '',
             verify: false
         };
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -47,8 +47,9 @@ class Login extends Component {
                 email: this.state.email,
                 password: this.state.password
             }
-        }).then(resp => {
-            console.log(resp.data)
+        }).then((resp) => {
+            console.log(resp.data);
+            localStorage.setItem("profil", JSON.stringify(resp.data))
         }).catch(err => {
             console.log(err)
         });
@@ -66,11 +67,20 @@ class Login extends Component {
                         </div>
                         <div className="col-md-6 loginContent">
                             <Header>
-                                <h2>Login <span style={{color: colors.primaryColor}}>Backpackuy</span></h2>
-                                <p>Hello there, please login to continue using backpackuy</p>
+                                <h2>Register <span style={{color: colors.primaryColor}}>Backpackuy</span></h2>
+                                <p>Welcome to Backpackuy, please register to make your account</p>
                             </Header>
                             <Form onSubmit={this.handleSubmit}>
                                 <FormContent className="form-group" key="formcontent1">
+                                    <label>Full Name</label>
+                                    <input type="text"
+                                           key="fullname"
+                                           className="form-control"
+                                           name="fullname"
+                                           value={this.state.fullname}
+                                           onChange={this.handleInputChange}/>
+                                </FormContent>
+                                <FormContent className="form-group" key="formcontent3">
                                     <label>Email address</label>
                                     <input type="email"
                                            key="email"
@@ -85,13 +95,13 @@ class Login extends Component {
                                            value={this.state.password} onChange={this.handleInputChange}/>
                                 </FormContent>
                                 <Header>
-                                    <button type="submit" className="btn btn-outline-primary">Login</button>
+                                    <button type="submit" className="btn btn-outline-primary">Register</button>
                                 </Header>
                             </Form>
-                            <p className="textLogReg">Don't have an account? <Link to="/register" style={{
+                            <p className="textLogReg">Already have an account? <Link to="/login" style={{
                                 color: colors.primaryColor,
                                 fontWeight: 600
-                            }}>Register Here</Link></p>
+                            }}>Login Here</Link></p>
                         </div>
                     </div>
                 </div>
@@ -105,4 +115,4 @@ class Login extends Component {
     }
 }
 
-export default Login
+export default Register

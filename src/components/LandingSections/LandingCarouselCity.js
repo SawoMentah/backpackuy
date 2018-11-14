@@ -27,12 +27,12 @@ class LandingCarouselCity extends Component {
                     autoplayTimeout={5000}
                     items={4}
                     margin={0}
-                    navs={true}
+                    nav
                     dots={false}
                     responsive={respOptions}
                 >
                     {landingCarousel.map((a, i) => (
-                        <div className="item">
+                        <div className="item" key={i}>
                             <div className="carouselContent">
                                 <div className="carouselHover">
                                     <h5>{a.title}</h5>

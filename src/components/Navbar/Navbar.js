@@ -6,7 +6,7 @@ class Navbar extends Component {
         return (
             <nav className="navigationBarContainer navbar sticky-top navbar-expand-lg navbar-light bg-light ">
                 <div className="container">
-                    <a className="navbar-brand" href="#">Backpackuy</a>
+                    <Link to="/" className="navbar-brand">Backpackuy</Link>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -17,7 +17,7 @@ class Navbar extends Component {
                                 <Link to="/" className="nav-link" href="#"><h6>Home</h6></Link>
                             </li>
                             <li className={`nav-item ${this.props.about ? "active" : ""}`}>
-                                <a className="nav-link" href="#"><h6>About Us</h6></a>
+                                <Link to="/dashboard" className="nav-link" href="#"><h6>About Us</h6></Link>
                             </li>
                             <li className={`nav-item ${this.props.login ? "active" : ""}`}>
                                 <Link to="/login" className="nav-link" href="#"><h6>Login</h6></Link>
