@@ -9,7 +9,7 @@ const LandingFeatures = () => (
             {landingFeatures.map(a => (
                 <div className="col-md-4">
                     <div className="cardFeatures">
-                        <img src="" alt={a.title}/>
+                        <img src="https://via.placeholder.com/150" alt={a.title} className="rounded-circle"/>
                         <h4>{a.title}</h4>
                         <p>{a.desc}</p>
                     </div>

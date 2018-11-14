@@ -3,6 +3,8 @@ export const colors = {
     secondaryColor: ""
 };
 
+export const BASE_URL = 'https://jsonplaceholder.typicode.com';
+
 export const landingFeatures = [
     {
         title: "Recommended Places",
@@ -15,5 +17,28 @@ export const landingFeatures = [
     {
         title: "Budget your Trip",
         desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid animi asperiores assumenda commodi dolores excepturi explicabo fugiat nisi tempora vel! Consequatur eos iusto officia pariatur quae quia quis unde vitae?"
+    }
+];
+
+export const landingCarousel = [
+    {
+        title: "Gunung Bromo",
+        kota: "Kota Malang",
+    },
+    {
+        title: "Jawa Timur Park 1",
+        kota: "Kota Batu",
+    },
+    {
+        title: "Paralayang",
+        kota: "Kota Batu",
+    },
+    {
+        title: "Taman Wisata Baluran",
+        kota: "Kota Banyuwangi",
+    },
+    {
+        title: "Candi Borobudur",
+        kota: "Daerah Istimewa Yogyakarta",
     }
 ];

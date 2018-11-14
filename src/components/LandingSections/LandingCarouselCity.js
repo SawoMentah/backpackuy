@@ -1,30 +1,50 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {landingCarousel} from "../Constant/LandingConstant";
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 
-const LandingCarouselCity = () => (
-    <section className="carouselLandingContainer">
-        <OwlCarousel
-            className="owl-theme"
-            loop
-            margin={10}
-            nav
-        >
-            <div class="item"><h4>1</h4></div>
-            <div class="item"><h4>2</h4></div>
-            <div class="item"><h4>3</h4></div>
-            <div class="item"><h4>4</h4></div>
-            <div class="item"><h4>5</h4></div>
-            <div class="item"><h4>6</h4></div>
-            <div class="item"><h4>7</h4></div>
-            <div class="item"><h4>8</h4></div>
-            <div class="item"><h4>9</h4></div>
-            <div class="item"><h4>10</h4></div>
-            <div class="item"><h4>11</h4></div>
-            <div class="item"><h4>12</h4></div>
-        </OwlCarousel>
-    </section>
-);
+class LandingCarouselCity extends Component {
+    render() {
+        const respOptions = {
+            0: {
+                items: 1,
+            },
+            480: {
+                items: 1,
+            },
+            768: {
+                items: 4,
+            }
+        };
 
+        return (
+            <section className="carouselLandingContainer">
+                <OwlCarousel
+                    className="owl-theme"
+                    loop
+                    autoplay
+                    autoplayTimeout={5000}
+                    items={4}
+                    margin={0}
+                    navs={true}
+                    dots={false}
+                    responsive={respOptions}
+                >
+                    {landingCarousel.map((a, i) => (
+                        <div className="item">
+                            <div className="carouselContent">
+                                <div className="carouselHover">
+                                    <h5>{a.title}</h5>
+                                    <p>{a.kota}</p>
+                                </div>
+                                <img src={require(`../../assets/images/carousel/${i + 1}.jpg`)} alt=""/>
+                            </div>
+                        </div>
+                    ))}
+                </OwlCarousel>
+            </section>
+        );
+    }
+}
 export default LandingCarouselCity

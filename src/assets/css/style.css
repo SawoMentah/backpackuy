@@ -2,6 +2,7 @@
 
 body {
     font-family: "Open Sans" sans-serif;
+    overflow-x: hidden;
 }
 
 h2 {
@@ -17,7 +18,7 @@ h2 {
 /*Landing CSS*/
 .navigationBarContainer {
     width: 100%;
-    height: 70px;
+    min-height: 70px;
     background: white;
 }
 
@@ -43,6 +44,7 @@ h2 {
     letter-spacing: -1px;
     font-weight: 300;
     position: absolute;
+    font-variant-caps: all-petite-caps;
     top: 50%;
     left: 50%;
     transform: translate(-50%, 0);
@@ -71,23 +73,35 @@ h2 {
     margin-bottom: 120px;
 }
 
+.imageIntro {
+    max-width: 100%;
+    max-height: 100%;
+}
 .textLanding {
     width: 100%;
     text-align: justify;
 }
 
 .featuresLanding {
-    margin-bottom: 56px;
+    margin-bottom: 120px;
 }
 
 .cardFeatures {
+    width: 100%;
+    position: relative;
     padding: 16px;
     min-height: 200px;
     border-radius: 2px;
+    margin-bottom: 18px;
     box-shadow: 0px 3px 7px rgba(158, 158, 158, 0.7);
 }
 
+.cardFeatures img {
+    display: block;
+    margin: 0 auto;
+}
 .cardFeatures h4 {
+    margin-top: 36px;
     text-align: center;
     font-weight: 400;
     font-variant-caps: all-petite-caps;
@@ -99,6 +113,154 @@ h2 {
     font-weight: 300;
 }
 
+.carouselLandingContainer {
+    margin-bottom: 120px;
+}
+
+.carouselContent {
+    position: relative;
+}
+
+.carouselHover {
+    opacity: 0;
+    min-width: 100%;
+    min-height: 100%;
+    background: rgba(0, 0, 0, 0);
+    position: absolute;
+    transition: 0.4s;
+}
+
+.carouselHover:hover {
+    opacity: 1;
+    cursor: grab;
+    min-width: 100%;
+    min-height: 100%;
+    background: rgba(251, 197, 49, 0.4);
+    position: absolute;
+    transition: 0.4s;
+}
+
+.carouselHover h5 {
+    height: 100%;
+    text-align: center;
+    width: 100%;
+    color: white;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.carouselHover p {
+    height: 100%;
+    font-weight: 300;
+    text-align: center;
+    font-size: 14px;
+    width: 100%;
+    color: white;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.landingLastContainer {
+    min-height: 500px;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    background: url("../images/lastLanding.jpg");
+    background-size: cover;
+    background-position: top;
+    margin-bottom: 36px;
+    text-align: center;
+}
+
+.landingLastContainer button {
+    min-width: 40%;
+    margin-top: 24px;
+    border: 2px solid #fbc531;
+    border-radius: 5px !important;
+    color: #fbc531;
+    padding: 16px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.landingLastContainer button:hover {
+    margin-top: 24px;
+    border: 2px solid #fbc531 !important;
+    background: #fbc531;
+    border-radius: 5px !important;
+    color: white;
+    padding: 16px;
+    font-size: 20px;
+    font-weight: 700;
+    transition: 0.4s;
+}
+
+.landingLastContainer p {
+    text-align: center;
+}
+
+.footerContainer {
+    padding-top: 32px;
+    margin-top: 32px;
+    padding-bottom: 16px;
+    text-align: center;
+    color: #bababa;
+    font-variant-caps: all-petite-caps;
+    font-weight: 300;
+}
+
+.mainFooter h4 {
+    text-align: left;
+    color: #000;
+    font-weight: 600;
+    font-size: 18px;
+    font-variant-caps: all-petite-caps;
+    letter-spacing: 2px;
+}
+
+.mainFooter h4 span {
+    font-weight: 300;
+    font-size: 16px;
+    color: #5a6268;
+    font-variant-caps: all-petite-caps;
+    letter-spacing: 2px;
+}
+
+.secondFooter {
+    text-align: right;
+    color: #6c757d;
+    font-weight: 400;
+    font-size: 14px;
+    font-variant-caps: all-petite-caps;
+    letter-spacing: 2px;
+}
+
+/*Login Psge*/
+.loginContainer {
+}
+
+.loginContent {
+    margin-top: 140px;
+}
+
+.loginContent h2 {
+    margin-bottom: 12px;
+    text-align: left !important;
+}
+
+.loginContent p {
+    font-weight: 300;
+    margin-bottom: 52px;
+}
+
+.form-group label {
+    font-weight: 300;
+    font-variant-caps: all-petite-caps;
+    letter-spacing: 2px;
+}
 @keyframes animasiBg {
     0% {
         background-size: 130%;
@@ -133,6 +295,15 @@ h2 {
         animation-name: none;
         animation-duration: 0s;
         animation-iteration-count: infinite;
+    }
+
+    .landingLastContainer p {
+        color: white;
+        text-align: center;
+    }
+
+    .loginContent {
+        margin-top: 32px;
     }
 
 }
