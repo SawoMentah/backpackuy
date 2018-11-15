@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import '../../assets/css/style.css'
 
 class Navbar extends Component {
     render() {
+        let namaku;
+        if (localStorage.getItem("profil")) {
+            namaku = JSON.parse(localStorage.getItem("profil")).data.fullName;
+        }
         return (
             <nav className="navigationBarContainer navbar sticky-top navbar-expand-lg navbar-light bg-light ">
-                <div className="container">
+                <div className="container-fluid">
                     <Link to="/" className="navbar-brand">Backpackuy</Link>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,7 +25,9 @@ class Navbar extends Component {
                                 <Link to="/dashboard" className="nav-link" href="#"><h6>About Us</h6></Link>
                             </li>
                             <li className={`nav-item ${this.props.login ? "active" : ""}`}>
-                                <Link to="/login" className="nav-link" href="#"><h6>Login</h6></Link>
+                                {namaku || this.props.nama !== '' ? <Link to="/" className="nav-link" href="#"><h6
+                                        className="nameNavbar">{namaku ? namaku : this.props.nama}</h6></Link> :
+                                    <Link to="/login" className="nav-link" href="#"><h6>Login</h6></Link>}
                             </li>
                         </ul>
                     </div>

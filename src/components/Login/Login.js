@@ -3,7 +3,7 @@ import {BASE_URL, colors} from "../Constant/LandingConstant";
 import posed from 'react-pose';
 import Footer from "../Footer/Footer";
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 
 const height = window.innerHeight - 230;
@@ -25,10 +25,32 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            verify: false
+            redirect: false
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.renderAfterRegister = this.renderAfterRegister.bind(this);
+    }
+
+    componentDidMount() {
+        if (localStorage.getItem("profil")) {
+            axios({
+                baseURL: BASE_URL,
+                method: 'POST',
+                url: '/user/check',
+                data: {
+                    token: JSON.parse(localStorage.getItem("profil")).token
+                }
+            }).then(resp => {
+                if (resp.data.login) {
+                    this.setState({
+                        redirect: true
+                    });
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        }
     }
 
     handleInputChange(event) {
@@ -40,21 +62,47 @@ class Login extends Component {
     handleSubmit(event) {
         event.preventDefault();
         axios({
-            url: '/posts/1',
-            method: 'get',
+            url: '/user/signin',
+            method: 'POST',
             baseURL: BASE_URL,
             data: {
                 email: this.state.email,
                 password: this.state.password
             }
         }).then(resp => {
-            console.log(resp.data)
+            console.log(resp.data);
+            localStorage.removeItem("profil");
+            localStorage.setItem("profil", JSON.stringify(resp.data));
+            console.log(localStorage.getItem("profil"));
+            this.props.gantiNama(resp.data.data.fullName);
+            this.setState({
+                redirect: true
+            })
         }).catch(err => {
             console.log(err)
         });
     }
 
+    renderAfterRegister() {
+        if (this.props.location.state && this.props.location.state.afterRegister) {
+            return (
+                <div className="alert alert-success" role="alert">
+                    Register Success, continue with login
+                </div>
+            )
+        } else {
+            return null
+        }
+    }
     render() {
+        const {redirect} = this.state;
+
+        if (redirect) {
+            return <Redirect to={{
+                pathname: '/dashboard'
+            }}/>
+        }
+
         return (
             <section className="loginContainer">
                 <div className="container" style={{minHeight: height}}>
@@ -71,6 +119,7 @@ class Login extends Component {
                             </Header>
                             <Form onSubmit={this.handleSubmit}>
                                 <FormContent className="form-group" key="formcontent1">
+                                    {this.renderAfterRegister()}
                                     <label>Email address</label>
                                     <input type="email"
                                            key="email"
@@ -104,5 +153,4 @@ class Login extends Component {
         );
     }
 }
-
 export default Login

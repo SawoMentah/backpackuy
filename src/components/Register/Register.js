@@ -3,7 +3,7 @@ import {BASE_URL, colors} from "../Constant/LandingConstant";
 import posed from 'react-pose';
 import Footer from "../Footer/Footer";
 import axios from 'axios';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 const height = window.innerHeight - 230;
 const Form = posed.form({
@@ -25,7 +25,7 @@ class Register extends Component {
             email: '',
             password: '',
             fullname: '',
-            verify: false
+            redirect: false
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,22 +40,32 @@ class Register extends Component {
     handleSubmit(event) {
         event.preventDefault();
         axios({
-            url: '/posts/1',
-            method: 'get',
+            url: '/user/signup',
+            method: 'POST',
             baseURL: BASE_URL,
             data: {
+                fullName: this.state.fullname,
                 email: this.state.email,
                 password: this.state.password
             }
         }).then((resp) => {
-            console.log(resp.data);
-            localStorage.setItem("profil", JSON.stringify(resp.data))
+            this.setState({
+                redirect: true
+            })
         }).catch(err => {
             console.log(err)
         });
     }
 
     render() {
+        const {redirect} = this.state;
+
+        if (redirect) {
+            return <Redirect to={{
+                pathname: '/login',
+                state: {afterRegister: true}
+            }}/>
+        }
         return (
             <section className="loginContainer">
                 <div className="container" style={{minHeight: height}}>

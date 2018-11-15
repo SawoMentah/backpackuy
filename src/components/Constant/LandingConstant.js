@@ -3,7 +3,7 @@ export const colors = {
     secondaryColor: ""
 };
 
-export const BASE_URL = 'https://jsonplaceholder.typicode.com';
+export const BASE_URL = 'http://68.183.224.216:9000';
 
 export const landingFeatures = [
     {
