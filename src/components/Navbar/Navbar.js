@@ -13,6 +13,8 @@ class Navbar extends Component {
         }
     }
     render() {
+        console.log(JSON.parse(localStorage.getItem("profil")));
+        console.log();
         let namaku;
         if (localStorage.getItem("profil")) {
             namaku = JSON.parse(localStorage.getItem("profil")).data.fullName;
@@ -35,7 +37,7 @@ class Navbar extends Component {
                                 <Link to="/dashboard" className="nav-link" href="#"><h6>About Us</h6></Link>
                             </li>
                             <li className={`nav-item ${this.props.login ? "active" : ""}`}>
-                                {namaku || this.props.nama !== '' ? <Link to="/" className="nav-link" href="#"><h6
+                                {localStorage.getItem("profil") ? <Link to="/" className="nav-link" href="#"><h6
                                         className="nameNavbar">{namaku ? namaku : this.props.nama}</h6></Link> :
                                     <Link to="/login" className="nav-link" href="#"><h6>Login</h6></Link>}
                             </li>
