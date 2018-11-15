@@ -33,9 +33,17 @@ class App extends Component {
                 return <Navbar login={true} nama={this.state.fullName}/>;
             case "/register":
                 return <Navbar login={true} nama={this.state.fullName}/>;
+            case "/dashboard":
+                return <Navbar dashboard={true} nama={this.state.fullName}/>;
             default:
-                return <Navbar nama={this.state.fullName}/>
+                if (pathname.includes("/dashboard")) {
+                    return <Navbar dashboard={true} nama={this.state.fullName}/>
+                } else {
+                    return <Navbar nama={this.state.fullName}/>
+                }
+
         }
+
     }
   render() {
       const RoutesContainer = posed.div({

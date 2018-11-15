@@ -19,7 +19,6 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        console.log(JSON.parse(localStorage.getItem("profil")));
         window.scrollTo(0, 0);
         if (localStorage.getItem("profil")) {
             axios({
@@ -37,26 +36,27 @@ class Main extends Component {
                 }
             }).catch(err => {
                 console.log(err)
-            })
+            });
+
+            axios({
+                baseURL: BASE_URL,
+                url: '/plan/get',
+                method: 'POST',
+                data: {
+                    id_user: JSON.parse(localStorage.getItem("profil")).data._id
+                }
+            }).then(resp => {
+                this.setState({
+                    dataPlan: this.state.dataPlan.concat(resp.data),
+                    loading: false
+                })
+            });
         } else {
             this.setState({
                 redirect: true
             });
         }
-        axios({
-            baseURL: BASE_URL,
-            url: '/plan/get',
-            method: 'POST',
-            data: {
-                id_user: JSON.parse(localStorage.getItem("profil")).data._id
-            }
-        }).then(resp => {
-            console.log(resp);
-            this.setState({
-                dataPlan: this.state.dataPlan.concat(resp.data),
-                loading: false
-            })
-        })
+
     }
 
     renderIsi() {
@@ -90,8 +90,6 @@ class Main extends Component {
                 <Redirect to={{pathname: '/login'}}/>
             )
         }
-
-        console.log(this.state.dataPlan);
         return (
             <div style={{background: "#eee", height: "100vh"}}>
                 <Sidebar gantiLagi={nama => this.props.gantiNama(nama)}/>
