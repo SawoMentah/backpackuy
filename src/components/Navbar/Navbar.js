@@ -37,7 +37,7 @@ class Navbar extends Component {
                                 <Link to="/dashboard" className="nav-link" href="#"><h6>About Us</h6></Link>
                             </li>
                             <li className={`nav-item ${this.props.login ? "active" : ""}`}>
-                                {localStorage.getItem("profil") ? <Link to="/" className="nav-link" href="#"><h6
+                                {localStorage.getItem("profil") ? <Link to="/" className="nav-link"><h6
                                         className="nameNavbar">{namaku ? namaku : this.props.nama}</h6></Link> :
                                     <Link to="/login" className="nav-link" href="#"><h6>Login</h6></Link>}
                             </li>

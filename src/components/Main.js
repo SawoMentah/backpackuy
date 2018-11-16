@@ -14,6 +14,7 @@ class Main extends Component {
         this.state = {
             redirect: false,
             dataPlan: [],
+            dataProvince: [],
             loading: true,
         }
     }
@@ -57,8 +58,27 @@ class Main extends Component {
             });
         }
 
+        axios({
+            baseURL: BASE_URL,
+            url: '/api/provinsi'
+        }).then(resp => {
+            console.log(resp.data);
+            this.setState({
+                dataProvince: this.state.dataProvince.concat(resp.data)
+            });
+        }).catch(err => {
+            console.log(err)
+        })
+
     }
 
+    forceRender(data) {
+        this.forceUpdate();
+        this.setState({
+            dataPlan: this.state.dataPlan.concat(data),
+        });
+        document.getElementById("buttonHideModal").click()
+    }
     renderIsi() {
         if (this.state.loading) {
             return (
@@ -97,7 +117,7 @@ class Main extends Component {
                     <p>My Plans</p>
                     {this.renderIsi()}
                 </div>
-                <ModalAddPlans/>
+                <ModalAddPlans forceUpdate={(data => this.forceRender(data))} dataProvince={this.state.dataProvince}/>
             </div>
         );
     }
