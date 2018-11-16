@@ -45,10 +45,17 @@ class DetailPlans extends Component {
                 <Redirect to={{pathname: '/login'}}/>
             )
         }
-        const layout = [
-            {i: 'w_oee_1', x: 0, y: 0, w: 6, h: 2, minW: 4, minH: 2, maxH: 2},
-            {i: 'w_oee_2', x: 6, y: 3, w: 2, h: 2, minW: 4, minH: 2, maxH: 2},
-        ];
+        let layout;
+        if (localStorage.getItem("layoutIni")) {
+            console.log(localStorage.getItem("layoutIni"));
+            layout = JSON.parse(localStorage.getItem("layoutIni"));
+        } else {
+            layout = [
+                {i: '1', x: 0, y: 0, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
+                {i: '2', x: 1, y: 0, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
+            ];
+            localStorage.setItem("layoutIni", layout)
+        }
         return (
             <div style={{background: "#eee", height: "100vh"}}>
                 <Sidebar gantiLagi={nama => this.props.gantiNama(nama)}/>
@@ -65,15 +72,39 @@ class DetailPlans extends Component {
                     </section>
 
                     <section className="mainDetail">
-                        <GridLayout classname="layout container" layout={layout} cols={10} rowHeight={30}
-                                    width={window.innerWidth - 320} height={900}
-                                    style={{background: 'red', maxHeight: "900px"}}>
-                            <div key="w_oee_1">
+                        <div className="row" style={{width: window.innerWidth - 520}}>
+                            <div className="col-3">
+                                <h2>Day 1</h2>
+                            </div>
+                            <div className="col-3">
+                                <h2>Day 2</h2>
+                            </div>
+                            <div className="col-3">
+                                <h2>Day 3</h2>
+                            </div>
+                            <div className="col-3">
+                                <h2>Day 4</h2>
+                            </div>
+                        </div>
+                        <GridLayout classname="layout container" layout={layout} cols={4} rowHeight={200}
+                                    width={window.innerWidth - 520} height={900}
+                                    margin={[16, 16]}
+                                    isResizable={false}
+                                    onLayoutChange={(layout) => {
+                                        console.log(localStorage.getItem("layoutIni"));
+                                        localStorage.setItem("layoutIni", JSON.stringify(layout))
+                                    }}
+                                    style={{maxHeight: "900px"}}>
+                            <div key="1">
                                 <div className="cardPlanTimeline">
                                 </div>
                             </div>
-                            <div key="w_oee_2">
+                            <div key="2">
                                 <div className="cardPlanTimeline">
+                                    <div className="bgCardPlan">
+
+                                    </div>
+                                    <span>Halo</span>
                                 </div>
                             </div>
                         </GridLayout>

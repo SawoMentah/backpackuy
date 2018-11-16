@@ -16,6 +16,7 @@ class Main extends Component {
             dataPlan: [],
             dataProvince: [],
             loading: true,
+            err: false
         }
     }
 
@@ -51,6 +52,10 @@ class Main extends Component {
                     dataPlan: this.state.dataPlan.concat(resp.data),
                     loading: false
                 })
+            }).catch(err => {
+                this.setState({
+                    err: true
+                });
             });
         } else {
             this.setState({
@@ -72,6 +77,39 @@ class Main extends Component {
 
     }
 
+    getDataAgain() {
+        this.setState({
+            err: false
+        });
+        axios({
+            baseURL: BASE_URL,
+            url: '/plan/get',
+            method: 'POST',
+            data: {
+                id_user: JSON.parse(localStorage.getItem("profil")).data._id
+            }
+        }).then(resp => {
+            this.setState({
+                dataPlan: this.state.dataPlan.concat(resp.data),
+                loading: false
+            })
+        }).catch(err => {
+            this.setState({
+                err: true
+            });
+        });
+        axios({
+            baseURL: BASE_URL,
+            url: '/api/provinsi'
+        }).then(resp => {
+            console.log(resp.data);
+            this.setState({
+                dataProvince: this.state.dataProvince.concat(resp.data)
+            });
+        }).catch(err => {
+            console.log(err)
+        })
+    }
     forceRender(data) {
         this.forceUpdate();
         this.setState({
@@ -80,9 +118,15 @@ class Main extends Component {
         document.getElementById("buttonHideModal").click()
     }
     renderIsi() {
-        if (this.state.loading) {
+        if (this.state.loading && !this.state.err) {
             return (
                 <p>Loading...</p>
+            )
+        } else if (this.state.loading && this.state.err) {
+            return (
+                <div className="errorPage" style={{height: window.innerHeight}}>
+                    <button onClick={() => this.getDataAgain()}>Try Again</button>
+                </div>
             )
         } else {
             return (

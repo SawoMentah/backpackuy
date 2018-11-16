@@ -49,6 +49,7 @@ class Register extends Component {
                 password: this.state.password
             }
         }).then((resp) => {
+            console.log(resp);
             this.setState({
                 redirect: true
             })

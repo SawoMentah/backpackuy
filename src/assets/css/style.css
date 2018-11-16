@@ -396,8 +396,19 @@ h2 {
 .cardPlanTimeline {
     background: white;
     width: 100%;
+    border-radius: 5px;
     height: 100%;
-    box-shadow: 0px 3px 7px rgba(158, 158, 158, 0.4);
+    box-shadow: 0px 3px 7px rgba(158, 158, 158, 0.3);
+}
+
+.cardPlanTimeline span {
+    height: auto;
+    position: absolute;
+    top: 50%;
+    padding: 6px 32px 18px 32px;
+    left: 50%;
+    border-radius: 6px;
+    transform: translate(-50%, 0);
 }
 .textPlans {
     height: auto;
@@ -520,6 +531,19 @@ h2 {
     padding: 16px;
     border-radius: 5px;
     border: 2px solid #fbc531;
+}
+
+.errorPage {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.errorPage button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 /*Keyframaes*/
 @keyframes animasiBg {
