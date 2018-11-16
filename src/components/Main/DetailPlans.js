@@ -57,7 +57,7 @@ class DetailPlans extends Component {
             localStorage.setItem("layoutIni", layout)
         }
         return (
-            <div style={{background: "#eee", height: "100vh"}}>
+            <div style={{background: "#eee", minHeight: "100vh"}}>
                 <Sidebar gantiLagi={nama => this.props.gantiNama(nama)}/>
                 <RightBar/>
                 <div className="containerMain" style={{marginRight: "380px"}}>
