@@ -36,6 +36,7 @@ class Main extends Component {
                     token: JSON.parse(localStorage.getItem("profil")).token
                 }
             }).then(resp => {
+                console.log(resp);
                 if (resp.data.login !== true) {
                     this.setState({
                         redirect: true

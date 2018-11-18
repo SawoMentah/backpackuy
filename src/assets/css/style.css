@@ -156,7 +156,7 @@ h2 {
     width: 100%;
     position: relative;
     padding: 16px;
-    min-height: 400px;
+    min-height: 250px;
     border-radius: 2px;
     margin-bottom: 18px;
     box-shadow: 0px 3px 7px rgba(158, 158, 158, 0.7);
@@ -169,7 +169,7 @@ h2 {
 .cardFeatures h4 {
     margin-top: 36px;
     text-align: center;
-    font-weight: 400;
+    font-weight: 700;
     font-variant-caps: all-petite-caps;
     margin-bottom: 36px;
 }

@@ -9,7 +9,7 @@ const LandingFeatures = () => (
             {landingFeatures.map((a, i) => (
                 <div className="col-md-4" key={i}>
                     <div className="cardFeatures">
-                        <img src="https://via.placeholder.com/150" alt={a.title} className="rounded-circle"/>
+                        {/*<img src="https://via.placeholder.com/150" alt={a.title} className="rounded-circle"/>*/}
                         <h4>{a.title}</h4>
                         <p>{a.desc}</p>
                     </div>
