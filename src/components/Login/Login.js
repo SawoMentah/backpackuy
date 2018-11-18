@@ -84,6 +84,7 @@ class Login extends Component {
         });
     }
 
+
     renderAfterRegister() {
         if (this.props.location.state && this.props.location.state.afterRegister) {
             return (

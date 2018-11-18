@@ -10,7 +10,14 @@ class DetailPlans extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            redirect: false
+            redirect: false,
+            loading: true,
+            layout: [{i: '1', x: 0, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+                {i: '2', x: 1, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+                {i: '3', x: 2, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+                {i: '4', x: 3, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true}],
+            namaWisata: '',
+            namaDestinasi: [],
         }
     }
 
@@ -33,40 +40,82 @@ class DetailPlans extends Component {
                 console.log(err)
             })
         } else {
+
             this.setState({
                 redirect: true
             });
+
         }
+        const idPlan = window.location.pathname.split("/")[2];
+        axios({
+            baseURL: BASE_URL,
+            url: '/agenda/list',
+            method: 'POST',
+            data: {
+                id_detail: idPlan
+            }
+        }).then(resp => {
+            this.setState({
+                layout: this.state.layout.concat(resp.data.data.position.map(a => {
+                    return {i: a.i, x: a.x, y: a.y, w: a.w, h: a.h}
+                })),
+                namaDestinasi: this.state.namaDestinasi.concat(resp.data.data.position.map(a => {
+                    return {
+                        destinasi: a.Destinasi
+                    }
+                }))
+            });
+            axios({
+                baseURL: BASE_URL,
+                method: 'POST',
+                url: '/plan/get/detail',
+                data: {
+                    _id: idPlan
+                }
+            }).then(resp => {
+                console.log(resp);
+                this.setState({
+                    namaWisata: resp.data.data.Destinasi,
+                    loading: false
+                })
+            })
+        })
     }
 
     render() {
+        if (this.state.loading) {
+            return (
+                <p>Loading ...</p>
+            )
+        }
         if (this.state.redirect) {
             return (
                 <Redirect to={{pathname: '/login'}}/>
             )
         }
         let layout;
-        if (localStorage.getItem("layoutIni")) {
-            console.log(localStorage.getItem("layoutIni"));
-            layout = [
-                {i: '1', x: 0, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-                {i: '2', x: 1, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-                {i: '3', x: 2, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-                {i: '4', x: 3, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-                {i: '5', x: 0, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
-                {i: '6', x: 1, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
-            ];
-        } else {
-            layout = [
-                {i: '1', x: 0, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-                {i: '2', x: 1, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-                {i: '3', x: 2, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-                {i: '4', x: 3, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-                {i: '5', x: 0, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
-                {i: '6', x: 1, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
-            ];
-            localStorage.setItem("layoutIni", layout)
-        }
+        // if (localStorage.getItem("layoutIni")) {
+        //     console.log(localStorage.getItem("layoutIni"));
+        //     layout = [
+        //         {i: '1', x: 0, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+        //         {i: '2', x: 1, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+        //         {i: '3', x: 2, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+        //         {i: '4', x: 3, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+        //         {i: '5', x: 0, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
+        //         {i: '6', x: 1, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
+        //     ];
+        // } else {
+        //     layout = [
+        //         {i: '1', x: 0, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+        //         {i: '2', x: 1, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+        //         {i: '3', x: 2, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+        //         {i: '4', x: 3, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+        //         {i: '5', x: 0, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
+        //         {i: '6', x: 1, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
+        //     ];
+        //     localStorage.setItem("layoutIni", layout)
+        // }
+        console.log(this.state.layout);
         return (
             <div style={{background: "#eee", minHeight: "100vh"}}>
                 <Sidebar gantiLagi={nama => this.props.gantiNama(nama)}/>
@@ -79,11 +128,11 @@ class DetailPlans extends Component {
                                 <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/>
                             </svg>
                         </Link>
-                        <h2>Malang</h2>
+                        <h2>{this.state.namaWisata}</h2>
                     </section>
 
                     <section className="mainDetail">
-                        <GridLayout classname="layout container" layout={layout} cols={4} rowHeight={100}
+                        <GridLayout classname="layout container" layout={this.state.layout} cols={4} rowHeight={100}
                                     width={window.innerWidth - 520}
                                     margin={[16, 16]}
                                     isResizable={false}
@@ -117,23 +166,17 @@ class DetailPlans extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div key="5">
-                                <div className="cardPlanTimeline">
-                                    <div className="bgCardPlan">
-
+                            {this.state.layout.map((a, i) => {
+                                return (
+                                    <div key={a.i}>
+                                        <div>
+                                            <div>
+                                                <h2>{this.state.namaDestinasi[i].destinasi}</h2>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <span>Halo 5</span>
-                                </div>
-                            </div>
-                            <div key="6">
-                                <div className="cardPlanTimeline">
-                                    <div className="bgCardPlan">
-
-                                    </div>
-                                    <span>Halo 6</span>
-                                </div>
-                            </div>
-
+                                )
+                            })}
                         </GridLayout>
                     </section>
 

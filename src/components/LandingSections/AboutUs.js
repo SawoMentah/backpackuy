@@ -10,9 +10,11 @@ const Profile = posed.div({
     exit: {y: 50, opacity: 0}
 });
 
-document.body.style.backgroundColor = "white";
+
 
 const AboutUs = () => {
+    document.body.style.backgroundColor = "white";
+    document.body.style.backgroundImage = "none";
     return (
         <div>
             <div className="container">

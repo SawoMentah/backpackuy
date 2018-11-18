@@ -6,24 +6,28 @@ const profilLocal = JSON.parse(localStorage.getItem("profil"));
 
 class Navbar extends Component {
     renderDashboardNav() {
-        if (this.props.nama !== '' || JSON.parse(localStorage.getItem("profil")) !== null) {
-            return (
-                <li className={`nav-item ${this.props.dashboard ? "active" : ""}`}>
-                    <Link to="/dashboard" className="nav-link" href="#"><h6>Dashboard</h6></Link>
-                </li>
-            )
+        if (JSON.parse(localStorage.getItem("profil")) !== null) {
+            if (this.props.nama !== '' || JSON.parse(localStorage.getItem("profil")) !== null) {
+                return (
+                    <li className={`nav-item ${this.props.dashboard ? "active" : ""}`}>
+                        <Link to="/dashboard" className="nav-link" href="#"><h6>Dashboard</h6></Link>
+                    </li>
+                )
+            }
         }
     }
 
     renderNameNav() {
-        if (this.props.nama !== '' || JSON.parse(localStorage.getItem("profil")) !== null) {
-            return (
-                <li className={`nav-item ${this.props.login ? "active" : ""}`}>
-                    <Link to="/" className="nav-link"><h6
-                        className="nameNavbar">{JSON.parse(localStorage.getItem("profil")).data.fullName}</h6>
-                    </Link>
-                </li>
-            )
+        if (JSON.parse(localStorage.getItem("profil")) !== null) {
+            if (this.props.nama !== '' || JSON.parse(localStorage.getItem("profil")) !== null) {
+                return (
+                    <li className={`nav-item ${this.props.login ? "active" : ""}`}>
+                        <Link to="/" className="nav-link"><h6
+                            className="nameNavbar">{JSON.parse(localStorage.getItem("profil")).data.fullName}</h6>
+                        </Link>
+                    </li>
+                )
+            }
         } else {
             return (
                 <li className={`nav-item ${this.props.login ? "active" : ""}`}>
@@ -31,6 +35,7 @@ class Navbar extends Component {
                 </li>
             )
         }
+
 
     }
     render() {

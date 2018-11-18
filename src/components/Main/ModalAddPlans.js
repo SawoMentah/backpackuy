@@ -13,6 +13,7 @@ class ModalAddPlans extends Component {
             tanggalAwal: '',
             tanggalAkhir: '',
             createdOn: '',
+            id_detail: '',
             toKota: false,
             urlGambar: ''
         }
@@ -65,9 +66,43 @@ class ModalAddPlans extends Component {
                                             TanggalAkhir: "2018-02-03",
                                         }
                                     }).then(resp => {
+                                        console.log(resp.data);
+                                        this.setState({
+                                            id_detail: resp.data._id
+                                        });
                                         this.props.forceUpdate(resp.data);
                                     }).catch(err => {
                                         console.log(err)
+                                    });
+                                    axios({
+                                        baseURL: BASE_URL,
+                                        method: 'POST',
+                                        url: '/info/get',
+                                        data: {
+                                            kota: a.Nama
+                                        }
+                                    }).then(resp => {
+                                        console.log(resp.data);
+                                        axios({
+                                            baseURL: BASE_URL,
+                                            method: 'POST',
+                                            url: '/agenda/insert',
+                                            data: {
+                                                id_detail: this.state.id_detail,
+                                                position: resp.data.data.map((a, i) => {
+                                                    return {
+                                                        Destinasi: a.nama,
+                                                        i: a._id,
+                                                        x: 1,
+                                                        y: 0,
+                                                        w: 1,
+                                                        h: 1
+                                                    }
+                                                })
+                                            }
+                                        }).then(resp => {
+                                            console.log(resp)
+                                        })
                                     })
                                 }}>
                                     <p>{a.Nama}</p>
