@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import OwlCarousel from "react-owl-carousel";
-import {landingCarousel} from "../Constant/Constant";
 import CurrencyFormat from 'react-currency-format';
 
 const respOptions = {
@@ -29,6 +28,18 @@ class RightBar extends Component {
                     </section>
                 </div>
             )
+        } else if (this.props.loading) {
+            return (
+                <div className="sidebarRight">
+                    <section className="sidebarRightContent">
+                        <div className="lds-ripple">
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </section>
+                </div>
+
+            )
         } else {
             return (
                 <div className="sidebarRight">
@@ -44,10 +55,10 @@ class RightBar extends Component {
                             dots={false}
                             responsive={respOptions}
                         >
-                            {landingCarousel.map((a, i) => (
+                            {Object.values(this.props.info[0].img).map((a, i) => (
                                 <div className="item" key={i}>
                                     <div className="carouselContent">
-                                        <img src={require(`../../assets/images/carousel/${i + 1}.jpg`)} alt=""/>
+                                        <img src={Object.values(this.props.info[0].img)[i]} alt=""/>
                                     </div>
                                 </div>
                             ))}

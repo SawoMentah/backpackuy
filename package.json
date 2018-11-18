@@ -51,6 +51,7 @@
     "react-dom": "^16.6.1",
     "react-grid-layout": "^0.16.6",
     "react-owl-carousel": "^2.3.1",
+    "react-owl-carousel2": "^0.3.0",
     "react-pose": "^4.0.1",
     "react-router-dom": "^4.3.1",
     "react-tooltip": "^3.9.0",

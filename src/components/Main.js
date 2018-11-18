@@ -20,7 +20,8 @@ class Main extends Component {
             urlGambar: '',
             id_hapus: '',
             index: 0,
-        }
+        };
+        document.body.style.backgroundImage = "none";
     }
 
     componentDidMount() {
@@ -52,6 +53,7 @@ class Main extends Component {
                     id_user: JSON.parse(localStorage.getItem("profil")).data._id
                 }
             }).then(resp => {
+                console.log(JSON.parse(localStorage.getItem("profil")).data._id);
                 this.setState({
                     dataPlan: this.state.dataPlan.concat(resp.data),
                     loading: false
@@ -88,6 +90,10 @@ class Main extends Component {
             this.setState({
                 urlGambar: resp.data.urls.regular
             })
+        }).catch(err => {
+            this.setState({
+                urlGambar: "http://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEyMDd9&s=24a3c366f89a3c604590e1da824200a1"
+            })
         });
     }
     getDataAgain() {
@@ -102,6 +108,7 @@ class Main extends Component {
                 id_user: JSON.parse(localStorage.getItem("profil")).data._id
             }
         }).then(resp => {
+            console.log(resp.data);
             this.setState({
                 dataPlan: this.state.dataPlan.concat(resp.data),
                 loading: false
@@ -196,7 +203,7 @@ class Main extends Component {
             <div style={{background: "#eee", height: "100vh"}}>
                 <Sidebar gantiLagi={nama => this.props.gantiNama(nama)}/>
                 <div className="containerMain">
-                    <p>My Plans</p>
+                    <h2>My Plans</h2>
                     {this.renderIsi()}
                 </div>
                 <ModalAddPlans getImage={() => this.getImage()} urlGambar={this.state.urlGambar}

@@ -16,19 +16,20 @@ const LandingIntro = () => (
         <div className="row">
             <Container className="col-md-6">
                 <P className="textLanding">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, aliquid commodi dignissimos
-                    ducimus explicabo fuga hic id nobis numquam perspiciatis possimus praesentium ratione recusandae
-                    suscipit tempora tempore tenetur vel vero?
+                    Backpackuy adalah aplikasi web yang dapat membantu masyarakat untuk mengagendakan liburan mereka
+                    dengan waktu pembuatan agenda yang sangat singkat. Backpackuy memberikan agenda jadi, yang dimana
+                    agenda tersebut juga sudah mencantumkan estimasi biaya yang diperlukan kepada pengguna yang telah
+                    menentukan ke daerah mana mereka akan berwisata, agenda tersebut juga bisa diubah oleh pengguna jika
+                    pengguna kurang menaruh minat pada destinasi yang telah ditentukan dalam agenda tersebut.
                 </P>
                 <P className="textLanding">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, aliquid commodi dignissimos
-                    ducimus explicabo fuga hic id nobis numquam perspiciatis possimus praesentium ratione recusandae
-                    suscipit tempora tempore tenetur vel vero?
-                </P>
-                <P className="textLanding">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, aliquid commodi dignissimos
-                    ducimus explicabo fuga hic id nobis numquam perspiciatis possimus praesentium ratione recusandae
-                    suscipit tempora tempore tenetur vel vero?
+                    Untuk saat ini hanya terdapat beberapa daerah saja yang terjangkau oleh Backpackuy, diantaranya
+                    Malang, Batu, Bandung, Yogyakarta, dan Jakarta. Daerah itulah yang saat ini dijangkau oleh
+                    Backpackuy, dan kami akan selalu siap untuk memperbaharui daerah yang dapat dijangkau oleh
+                    Backpackuy agar dapat memberikan keleluasaan kepada pengguna dalam memilih daerah destinasi mereka.
+                    Travel akan terasa dimudahkan dalam memilih suatu destinasi, menentukan lamanya berlibur, hingga
+                    estimasi biaya yang perlu disiapkan selama berlibur
+
                 </P>
             </Container>
             <div className="col-md-6">

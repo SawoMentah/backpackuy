@@ -31,18 +31,20 @@ class App extends Component {
             case "/":
                 return null;
             case "/login":
-                return <Navbar login={true} nama={this.state.fullName}/>;
+                return <Navbar login={true} nama={this.state.fullName} gantiNama={nama => this.changeFullName(nama)}/>;
             case "/register":
-                return <Navbar login={true} nama={this.state.fullName}/>;
+                return <Navbar login={true} nama={this.state.fullName} gantiNama={nama => this.changeFullName(nama)}/>;
             case "/dashboard":
-                return <Navbar dashboard={true} nama={this.state.fullName}/>;
+                return <Navbar dashboard={true} nama={this.state.fullName}
+                               gantiNama={nama => this.changeFullName(nama)}/>;
             case "/about":
-                return <Navbar about={true} nama={this.state.fullName}/>;
+                return <Navbar about={true} nama={this.state.fullName} gantiNama={nama => this.changeFullName(nama)}/>;
             default:
                 if (pathname.includes("/dashboard")) {
-                    return <Navbar dashboard={true} nama={this.state.fullName}/>
+                    return <Navbar dashboard={true} nama={this.state.fullName}
+                                   gantiNama={nama => this.changeFullName(nama)}/>
                 } else {
-                    return <Navbar nama={this.state.fullName}/>
+                    return <Navbar nama={this.state.fullName} gantiNama={nama => this.changeFullName(nama)}/>
                 }
 
         }

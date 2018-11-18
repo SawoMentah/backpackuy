@@ -33,21 +33,6 @@ class DetailPlans extends Component {
     }
 
     componentDidMount() {
-
-        var heroes = [
-            {aang: "1", b: "masuk"},
-            {aang: "1", b: "masuk1"},
-            {aang: "2", b: "masuk3"},
-        ];
-
-        var marvelHeroes = heroes.filter(function (hero) {
-            return hero.aang == 1;
-        });
-        console.log(marvelHeroes);
-
-
-
-
         if (localStorage.getItem("profil")) {
             axios({
                 baseURL: BASE_URL,
@@ -65,7 +50,18 @@ class DetailPlans extends Component {
             }).catch(err => {
                 console.log(err)
             });
-
+            axios({
+                baseURL: BASE_URL,
+                url: 'plan/get/detail',
+                method: 'POST',
+                data: {
+                    _id: this.state.idPlan
+                }
+            }).then(resp => {
+                this.setState({
+                    namaWisata: resp.data.data.Destinasi
+                });
+            });
             axios({
                 baseURL: BASE_URL,
                 url: 'agenda/list',
@@ -179,6 +175,26 @@ class DetailPlans extends Component {
         })
     }
 
+    componentWillUnmount() {
+        this.setState({
+            idPlan: window.location.pathname.split("/")[2],
+            redirect: false,
+            loading: true,
+            layout: [],
+            namaWisata: '',
+            idAgenda: '',
+            emptyRight: true,
+            loadingRight: true,
+            namaDestinasi: [],
+            info: [],
+            harga: [],
+            day1: [],
+            day2: [],
+            day3: [],
+            day4: [],
+        })
+    }
+
     render() {
         if (this.state.redirect) {
             return (
@@ -206,10 +222,13 @@ class DetailPlans extends Component {
                                     <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/>
                                 </svg>
                             </Link>
-                            <h2>{this.state.namaWisata}</h2>
-                        </section>
 
+                        </section>
+                        <div className="headerTitle" style={{width: window.innerWidth - 520}}>
+                            <h2>{this.state.namaWisata} Plan Trip</h2>
+                        </div>
                         <section className="mainDetail">
+
                             <div className="row" style={{minWidth: 1920 - 520}}>
                                 <div className="col-12 dayTotal">
                                     <p>Total <CurrencyFormat value={this.state.harga.reduce((a, b) => a + b, 0)}

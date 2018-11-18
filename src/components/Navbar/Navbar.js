@@ -60,6 +60,7 @@ class Navbar extends Component {
                             {this.renderNameNav()}
                         </ul>
                     </div>
+
                 </div>
             </nav>
         );

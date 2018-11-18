@@ -11,15 +11,15 @@ export const profileLocal = JSON.parse(localStorage.getItem("profil"));
 export const landingFeatures = [
     {
         title: "Recommended Places",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid animi asperiores assumenda commodi dolores excepturi explicabo fugiat nisi tempora vel! Consequatur eos iusto officia pariatur quae quia quis unde vitae?"
+        desc: "Wisata yang sedang populer, itulah yang direkomendasikan, tetapi juga memperhatikan beberapa faktor."
     },
     {
         title: "Scheduler",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid animi asperiores assumenda commodi dolores excepturi explicabo fugiat nisi tempora vel! Consequatur eos iusto officia pariatur quae quia quis unde vitae?"
+        desc: "Membuat agenda perjalanan yang fleksibel terhadap minat pengguna. Memberikan agenda pada setiap hari yang sudah ditentukan."
     },
     {
         title: "Budget your Trip",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid animi asperiores assumenda commodi dolores excepturi explicabo fugiat nisi tempora vel! Consequatur eos iusto officia pariatur quae quia quis unde vitae?"
+        desc: "Mengestimasi biaya yang diperlukan selama berwisata. Kemudahan dalam mengestimasi biaya yang harus dikeluarkan tanpa harus takut kekurangan uang."
     }
 ];
 export const profile = [

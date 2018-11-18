@@ -78,7 +78,8 @@ class Login extends Component {
             this.props.gantiNama(resp.data.data.fullName);
             this.setState({
                 redirect: true
-            })
+            });
+            window.location.pathname = "/dashboard";
         }).catch(err => {
             console.log(err)
         });
@@ -105,7 +106,9 @@ class Login extends Component {
             }}/>
         }
         document.body.style.backgroundColor = "white";
-        document.body.style.backgroundImage = `url('${bg}')`;
+        if (window.innerWidth > 480) {
+            document.body.style.backgroundImage = `url('${bg}')`;
+        }
         document.body.style.backgroundSize = "90%";
         document.body.style.backgroundRepeat = "no-repeat";
         return (

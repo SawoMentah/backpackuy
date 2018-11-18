@@ -156,7 +156,7 @@ h2 {
     width: 100%;
     position: relative;
     padding: 16px;
-    min-height: 200px;
+    min-height: 400px;
     border-radius: 2px;
     margin-bottom: 18px;
     box-shadow: 0px 3px 7px rgba(158, 158, 158, 0.7);
@@ -175,7 +175,7 @@ h2 {
 }
 
 .cardFeatures p {
-    text-align: justify;
+    text-align: center;
     font-weight: 300;
 }
 
@@ -732,6 +732,16 @@ h2 {
 }
 
 @media screen  and (max-width: 480px) {
+    .contentAddPlan h1 {
+        font-variant-caps: all-petite-caps;
+        font-size: 3vh;
+        letter-spacing: 3px;
+        font-weight: 300;
+        width: 100%;
+        top: 5%;
+        position: absolute;
+        text-align: center;
+    }
     .heroContainer p {
         font-size: 16px;
         letter-spacing: -1px;

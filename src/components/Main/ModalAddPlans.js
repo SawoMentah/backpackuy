@@ -55,56 +55,60 @@ class ModalAddPlans extends Component {
                                     this.setState({
                                         kota: a.Nama
                                     });
-                                    axios({
-                                        baseURL: BASE_URL,
-                                        url: '/plan/add',
-                                        method: 'POST',
-                                        data: {
-                                            id_user: profileLocal.data._id,
-                                            Destinasi: a.Nama,
-                                            TanggalAwal: "2018-02-01",
-                                            TanggalAkhir: "2018-02-03",
-                                        }
-                                    }).then(resp => {
-                                        console.log(resp.data);
-                                        this.setState({
-                                            id_detail: resp.data._id
+                                    if (profileLocal.data) {
+                                        console.log(profileLocal.data._id);
+                                        axios({
+                                            baseURL: BASE_URL,
+                                            url: '/plan/add',
+                                            method: 'POST',
+                                            data: {
+                                                id_user: profileLocal.data._id,
+                                                Destinasi: a.Nama,
+                                                TanggalAwal: "2018-02-01",
+                                                TanggalAkhir: "2018-02-03",
+                                            }
+                                        }).then(resp => {
+                                            console.log(resp.data, "Berhasil Add data");
+                                            this.setState({
+                                                id_detail: resp.data._id
+                                            });
+                                            this.props.forceUpdate(resp.data);
+                                        }).catch(err => {
+                                            console.log(err)
                                         });
-                                        this.props.forceUpdate(resp.data);
-                                    }).catch(err => {
-                                        console.log(err)
-                                    });
-                                    axios({
-                                        baseURL: BASE_URL,
-                                        method: 'POST',
-                                        url: '/info/get',
-                                        data: {
-                                            kota: a.Nama
-                                        }
-                                    }).then(resp => {
-                                        console.log(resp.data);
                                         axios({
                                             baseURL: BASE_URL,
                                             method: 'POST',
-                                            url: '/agenda/insert',
+                                            url: '/info/get',
                                             data: {
-                                                id_detail: this.state.id_detail,
-                                                position: resp.data.data.map((a, i) => {
-                                                    return {
-                                                        Destinasi: a.nama,
-                                                        Harga: a.tiket,
-                                                        i: a._id,
-                                                        x: i < 3 ? i : i - 1,
-                                                        y: i < 3 ? 0 : 1,
-                                                        w: 1,
-                                                        h: 1
-                                                    }
-                                                })
+                                                kota: a.Nama
                                             }
                                         }).then(resp => {
-                                            console.log(resp)
+                                            console.log(resp.data);
+                                            axios({
+                                                baseURL: BASE_URL,
+                                                method: 'POST',
+                                                url: '/agenda/insert',
+                                                data: {
+                                                    id_detail: this.state.id_detail,
+                                                    position: resp.data.data.map((a, i) => {
+                                                        return {
+                                                            Destinasi: a.nama,
+                                                            Harga: a.tiket,
+                                                            i: a._id,
+                                                            x: i < 3 ? i : i - 1,
+                                                            y: i < 3 ? 0 : 1,
+                                                            w: 1,
+                                                            h: 1
+                                                        }
+                                                    })
+                                                }
+                                            }).then(resp => {
+                                                console.log(resp)
+                                            })
                                         })
-                                    })
+                                    }
+
                                 }}>
                                     <p>{a.Nama}</p>
                                 </div>
@@ -135,7 +139,6 @@ class ModalAddPlans extends Component {
                                     createdOn: '',
                                     toKota: false
                                 });
-                                this.props.getImage();
                             }}>
                                 <span aria-hidden="true">&times;</span>
                             </button>
