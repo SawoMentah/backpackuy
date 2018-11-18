@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Backpackuy
 
-backpackuy.com
+https://backpackuy.com
 
 Arkchallenge by Absurd Division
 
