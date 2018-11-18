@@ -92,9 +92,10 @@ class ModalAddPlans extends Component {
                                                 position: resp.data.data.map((a, i) => {
                                                     return {
                                                         Destinasi: a.nama,
+                                                        Harga: a.tiket,
                                                         i: a._id,
-                                                        x: 1,
-                                                        y: 0,
+                                                        x: i < 3 ? i : i - 1,
+                                                        y: i < 3 ? 0 : 1,
                                                         w: 1,
                                                         h: 1
                                                     }

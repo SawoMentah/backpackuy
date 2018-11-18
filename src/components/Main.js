@@ -192,7 +192,6 @@ class Main extends Component {
                 <Redirect to={{pathname: '/login'}}/>
             )
         }
-        document.body.style.background = "#eee";
         return (
             <div style={{background: "#eee", height: "100vh"}}>
                 <Sidebar gantiLagi={nama => this.props.gantiNama(nama)}/>

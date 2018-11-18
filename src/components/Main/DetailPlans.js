@@ -5,23 +5,49 @@ import axios from "axios";
 import {BASE_URL} from "../Constant/Constant";
 import {Link, Redirect} from "react-router-dom";
 import RightBar from "../Sidebar/RightBar";
+import CurrencyFormat from "react-currency-format";
+
+let gambar;
 
 class DetailPlans extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            idPlan: window.location.pathname.split("/")[2],
             redirect: false,
             loading: true,
-            layout: [{i: '1', x: 0, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-                {i: '2', x: 1, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-                {i: '3', x: 2, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-                {i: '4', x: 3, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true}],
+            layout: [],
             namaWisata: '',
+            idAgenda: '',
+            emptyRight: true,
+            loadingRight: true,
             namaDestinasi: [],
-        }
+            info: [],
+            harga: [],
+            day1: [],
+            day2: [],
+            day3: [],
+            day4: [],
+        };
+        this.layoutChange = this.layoutChange.bind(this);
     }
 
     componentDidMount() {
+
+        var heroes = [
+            {aang: "1", b: "masuk"},
+            {aang: "1", b: "masuk1"},
+            {aang: "2", b: "masuk3"},
+        ];
+
+        var marvelHeroes = heroes.filter(function (hero) {
+            return hero.aang == 1;
+        });
+        console.log(marvelHeroes);
+
+
+
+
         if (localStorage.getItem("profil")) {
             axios({
                 baseURL: BASE_URL,
@@ -38,152 +64,219 @@ class DetailPlans extends Component {
                 }
             }).catch(err => {
                 console.log(err)
-            })
-        } else {
+            });
 
+            axios({
+                baseURL: BASE_URL,
+                url: 'agenda/list',
+                method: 'POST',
+                data: {
+                    id_detail: this.state.idPlan
+                }
+            }).then(resp => {
+                console.log(resp.data);
+                this.setState({
+                    layout: this.state.layout.concat(resp.data.data.position.map(a => {
+                        return {
+                            i: a.i, x: a.x, y: a.y, w: a.w, h: a.h, minW: 1, minH: 1, maxH: 2
+                        }
+                    })),
+                    namaDestinasi: this.state.namaDestinasi.concat(resp.data.data.position.map(a => {
+                        return a.Destinasi
+                    })),
+                    harga: this.state.harga.concat(resp.data.data.position.map(a => {
+                        return a.Harga
+                    })),
+                    idAgenda: resp.data.data._id,
+                    loading: false
+                })
+            }).catch(err => {
+                console.log(err)
+            })
+
+        } else {
             this.setState({
                 redirect: true
             });
-
         }
-        const idPlan = window.location.pathname.split("/")[2];
-        axios({
-            baseURL: BASE_URL,
-            url: '/agenda/list',
-            method: 'POST',
-            data: {
-                id_detail: idPlan
-            }
-        }).then(resp => {
-            this.setState({
-                layout: this.state.layout.concat(resp.data.data.position.map(a => {
-                    return {i: a.i, x: a.x, y: a.y, w: a.w, h: a.h}
-                })),
-                namaDestinasi: this.state.namaDestinasi.concat(resp.data.data.position.map(a => {
-                    return {
-                        destinasi: a.Destinasi
-                    }
-                }))
-            });
+    }
+
+    layoutChange(layout) {
+        if (!this.state.loading) {
             axios({
                 baseURL: BASE_URL,
+                url: 'agenda/update',
                 method: 'POST',
-                url: '/plan/get/detail',
                 data: {
-                    _id: idPlan
+                    _id: this.state.idAgenda,
+                    position: layout.map((a, i) => {
+                        return {
+                            "Destinasi": this.state.namaDestinasi[i],
+                            "Harga": this.state.harga[i],
+                            "i": a.i,
+                            "x": a.x,
+                            "y": a.y,
+                            "w": a.w,
+                            "h": a.h
+                        }
+                    })
                 }
             }).then(resp => {
-                console.log(resp);
+                const position = resp.data.data.position;
+                const jumlahd1 = position.filter((position) => {
+                    return position.x == 0;
+                }).map(a => {
+                    return a.Harga
+                });
+
+                const jumlahd2 = position.filter((position) => {
+                    return position.x == 1;
+                }).map(a => {
+                    return a.Harga
+                });
+
+                const jumlahd3 = position.filter((position) => {
+                    return position.x == 2;
+                }).map(a => {
+                    return a.Harga
+                });
+
+                const jumlahd4 = position.filter((position) => {
+                    return position.x == 3;
+                }).map(a => {
+                    return a.Harga
+                });
                 this.setState({
-                    namaWisata: resp.data.data.Destinasi,
-                    loading: false
+                    day1: jumlahd1,
+                    day2: jumlahd2,
+                    day3: jumlahd3,
+                    day4: jumlahd4,
                 })
+            })
+        }
+
+    }
+
+
+    detailClicked(destinasi) {
+        this.setState({
+            loadingRight: true,
+        });
+        axios({
+            baseURL: BASE_URL,
+            url: '/info/get',
+            method: 'POST',
+            data: {
+                nama: destinasi
+            }
+        }).then(resp => {
+            console.log(resp.data.data);
+            this.setState({
+                info: resp.data.data,
+                loadingRight: false,
+                emptyRight: false
             })
         })
     }
 
     render() {
-        if (this.state.loading) {
-            return (
-                <p>Loading ...</p>
-            )
-        }
         if (this.state.redirect) {
             return (
                 <Redirect to={{pathname: '/login'}}/>
             )
         }
-        let layout;
-        // if (localStorage.getItem("layoutIni")) {
-        //     console.log(localStorage.getItem("layoutIni"));
-        //     layout = [
-        //         {i: '1', x: 0, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-        //         {i: '2', x: 1, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-        //         {i: '3', x: 2, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-        //         {i: '4', x: 3, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-        //         {i: '5', x: 0, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
-        //         {i: '6', x: 1, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
-        //     ];
-        // } else {
-        //     layout = [
-        //         {i: '1', x: 0, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-        //         {i: '2', x: 1, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-        //         {i: '3', x: 2, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-        //         {i: '4', x: 3, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
-        //         {i: '5', x: 0, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
-        //         {i: '6', x: 1, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
-        //     ];
-        //     localStorage.setItem("layoutIni", layout)
-        // }
-        console.log(this.state.layout);
-        return (
-            <div style={{background: "#eee", minHeight: "100vh"}}>
-                <Sidebar gantiLagi={nama => this.props.gantiNama(nama)}/>
-                <RightBar/>
-                <div className="containerMain">
-                    <section className="headerDetail">
-                        <Link to="/dashboard">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="#5e5e5e" width="30" height="30"
-                                 viewBox="0 0 24 24">
-                                <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/>
-                            </svg>
-                        </Link>
-                        <h2>{this.state.namaWisata}</h2>
-                    </section>
+        if (this.state.loading) {
+            return (
+                <div className="lds-ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+            )
+        } else {
+            document.body.style.backgroundColor = "#eee";
+            return (
+                <div style={{background: "#eee", minHeight: "100vh"}}>
+                    <Sidebar gantiLagi={nama => this.props.gantiNama(nama)}/>
+                    <RightBar empty={this.state.emptyRight} loading={this.state.loadingRight} info={this.state.info}/>
+                    <div className="containerMain">
+                        <section className="headerDetail">
+                            <Link to="/dashboard">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="#5e5e5e" width="30" height="30"
+                                     viewBox="0 0 24 24">
+                                    <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/>
+                                </svg>
+                            </Link>
+                            <h2>{this.state.namaWisata}</h2>
+                        </section>
 
-                    <section className="mainDetail">
-                        <GridLayout classname="layout container" layout={this.state.layout} cols={4} rowHeight={100}
-                                    width={window.innerWidth - 520}
-                                    margin={[16, 16]}
-                                    isResizable={false}
-                                    onLayoutChange={(layout) => {
-                                        console.log(layout);
-                                        // console.log(JSON.parse(localStorage.getItem("layoutIni")));
-                                        localStorage.setItem("layoutIni", JSON.stringify(layout))
-                                    }}
-                                    style={{maxHeight: "900px"}}>
-                            <div key="1">
-                                <div>
-                                    <h2>Day 1</h2>
+                        <section className="mainDetail">
+                            <div className="row" style={{minWidth: 1920 - 520}}>
+                                <div className="col-12 dayTotal">
+                                    <p>Total <CurrencyFormat value={this.state.harga.reduce((a, b) => a + b, 0)}
+                                                             displayType={'text'} thousandSeparator={true}
+                                                             prefix={'Rp'}/></p>
                                 </div>
-                            </div>
-                            <div key="2">
-                                <div>
-                                    <h2>Day 1</h2>
+                                <div className="col-3">
+                                    <div className="dayPlanner">
+                                        <h2>Day 1</h2>
+                                        <p><CurrencyFormat value={this.state.day1.reduce((a, b) => a + b, 0)}
+                                                           displayType={'text'} thousandSeparator={true} prefix={'Rp'}/>
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div key="3">
-                                <div>
-                                    <div>
+                                <div className="col-3">
+                                    <div className="dayPlanner">
+                                        <h2>Day 2</h2>
+                                        <p><CurrencyFormat value={this.state.day2.reduce((a, b) => a + b, 0)}
+                                                           displayType={'text'} thousandSeparator={true} prefix={'Rp'}/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="col-3">
+                                    <div className="dayPlanner">
                                         <h2>Day 3</h2>
+                                        <p><CurrencyFormat value={this.state.day3.reduce((a, b) => a + b, 0)}
+                                                           displayType={'text'} thousandSeparator={true} prefix={'Rp'}/>
+                                        </p>
                                     </div>
                                 </div>
-                            </div>
-                            <div key="4">
-                                <div>
-                                    <div>
+                                <div className="col-3">
+                                    <div className="dayPlanner">
                                         <h2>Day 4</h2>
+                                        <p><CurrencyFormat value={this.state.day4.reduce((a, b) => a + b, 0)}
+                                                           displayType={'text'} thousandSeparator={true} prefix={'Rp'}/>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-                            {this.state.layout.map((a, i) => {
-                                return (
-                                    <div key={a.i}>
-                                        <div>
-                                            <div>
-                                                <h2>{this.state.namaDestinasi[i].destinasi}</h2>
+                            <GridLayout classname="layout container" layout={this.state.layout} cols={4} rowHeight={200}
+                                        width={1920 - 520}
+                                        margin={[16, 16]}
+                                        isResizable={false}
+                                        onLayoutChange={(layout) => this.layoutChange(layout)}
+                                        style={{minHeight: "900px"}}>
+                                {this.state.layout.map((a, i) => {
+                                    return (
+                                        <div key={a.i}>
+                                            <div className="cardPlanTimeline">
+                                                <div className="bgCardPlan">
+                                                </div>
+                                                <span>{this.state.namaDestinasi[i]}</span>
+                                                <button className="btn btn-primary"
+                                                        onClick={() => this.detailClicked(this.state.namaDestinasi[i])}>Detail
+                                                </button>
                                             </div>
                                         </div>
-                                    </div>
-                                )
-                            })}
-                        </GridLayout>
-                    </section>
+                                    )
+                                })}
+                            </GridLayout>
+                        </section>
+
+                    </div>
 
                 </div>
-
-            </div>
-        );
+            );
+        }
     }
 }
 
