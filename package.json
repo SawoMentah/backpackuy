@@ -51,6 +51,7 @@
     "react-owl-carousel": "^2.3.1",
     "react-pose": "^4.0.1",
     "react-router-dom": "^4.3.1",
+    "react-tooltip": "^3.9.0",
     "react-waypoint": "^8.0.3",
     "resolve": "1.8.1",
     "sass-loader": "7.1.0",

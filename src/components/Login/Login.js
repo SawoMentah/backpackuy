@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {BASE_URL, colors} from "../Constant/LandingConstant";
+import {BASE_URL, colors} from "../Constant/Constant";
 import posed from 'react-pose';
 import Footer from "../Footer/Footer";
 import axios from 'axios';
 import {Link, Redirect} from 'react-router-dom';
+import bg from '../../assets/images/bglogin.png';
 
 
 const height = window.innerHeight - 230;
@@ -102,7 +103,10 @@ class Login extends Component {
                 pathname: '/dashboard'
             }}/>
         }
-
+        document.body.style.backgroundColor = "white";
+        document.body.style.backgroundImage = `url('${bg}')`;
+        document.body.style.backgroundSize = "90%";
+        document.body.style.backgroundRepeat = "no-repeat";
         return (
             <section className="loginContainer">
                 <div className="container" style={{minHeight: height}}>

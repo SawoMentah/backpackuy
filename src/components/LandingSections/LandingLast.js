@@ -1,5 +1,5 @@
 import React from 'react';
-import {colors} from "../Constant/LandingConstant";
+import {colors} from "../Constant/Constant";
 import {Link} from 'react-router-dom';
 
 const LandingLast = () => (

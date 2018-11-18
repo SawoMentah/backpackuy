@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {BASE_URL} from "../Constant/LandingConstant";
+import {BASE_URL, profileLocal} from "../Constant/Constant";
 
 class ModalAddPlans extends Component {
     constructor(props) {
@@ -13,12 +13,17 @@ class ModalAddPlans extends Component {
             tanggalAwal: '',
             tanggalAkhir: '',
             createdOn: '',
-            toKota: false
+            toKota: false,
+            urlGambar: ''
         }
     }
 
+    componentDidMount() {
+
+    }
+
     renderIsiModal() {
-        const {provinsi, kota, tanggalAwal, toKota} = this.state;
+        const {provinsi, kota, tanggalAwal, toKota, dataProps} = this.state;
         if (provinsi === '' && kota === '' && tanggalAwal === '') {
             return (
                 <div className="container containerProvinsi">
@@ -29,7 +34,7 @@ class ModalAddPlans extends Component {
                                     this.setState({
                                         provinsi: a.Provinsi,
                                         toKota: true,
-                                        dataProps: {...this.state.dataProps[i], a}
+                                        dataProps: {...dataProps[i], a}
                                     });
                                 }}>
                                     <p>{a.Provinsi}</p>
@@ -40,7 +45,6 @@ class ModalAddPlans extends Component {
                 </div>
             )
         } else if (toKota) {
-            console.log(this.state.dataProps);
             return (
                 <div className="container containerProvinsi">
                     <div className="row">
@@ -55,13 +59,12 @@ class ModalAddPlans extends Component {
                                         url: '/plan/add',
                                         method: 'POST',
                                         data: {
-                                            id_user: JSON.parse(localStorage.getItem("profil")).data._id,
+                                            id_user: profileLocal.data._id,
                                             Destinasi: a.Nama,
                                             TanggalAwal: "2018-02-01",
                                             TanggalAkhir: "2018-02-03",
                                         }
                                     }).then(resp => {
-                                        console.log(resp);
                                         this.props.forceUpdate(resp.data);
                                     }).catch(err => {
                                         console.log(err)
@@ -77,17 +80,14 @@ class ModalAddPlans extends Component {
         }
     }
 
-    saveToDB() {
-
-    }
-
     render() {
+        const {urlGambar} = this.props;
         return (
             <div className="modal fade" id="modalAddPlans" tabIndex="-1" role="dialog" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content modalContainer">
 
-                        <div className="bgAddPlan">
+                        <div className="bgAddPlan" style={{background: `url("${urlGambar}")`}}>
                             <button type="button" id="buttonHideModal" className="close" data-dismiss="modal"
                                     aria-label="Close" onClick={() => {
                                 this.setState({
@@ -98,7 +98,8 @@ class ModalAddPlans extends Component {
                                     tanggalAkhir: '',
                                     createdOn: '',
                                     toKota: false
-                                })
+                                });
+                                this.props.getImage();
                             }}>
                                 <span aria-hidden="true">&times;</span>
                             </button>

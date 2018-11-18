@@ -1,5 +1,5 @@
 import React from 'react';
-import {colors, landingFeatures} from "../Constant/LandingConstant";
+import {colors, landingFeatures} from "../Constant/Constant";
 
 
 const LandingFeatures = () => (

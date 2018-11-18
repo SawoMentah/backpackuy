@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Main from "./components/Main";
 import './assets/css/style.css'
 import DetailPlans from "./components/Main/DetailPlans";
+import AboutUs from "./components/LandingSections/AboutUs";
 
 
 class App extends Component {
@@ -35,6 +36,8 @@ class App extends Component {
                 return <Navbar login={true} nama={this.state.fullName}/>;
             case "/dashboard":
                 return <Navbar dashboard={true} nama={this.state.fullName}/>;
+            case "/about":
+                return <Navbar about={true} nama={this.state.fullName}/>;
             default:
                 if (pathname.includes("/dashboard")) {
                     return <Navbar dashboard={true} nama={this.state.fullName}/>
@@ -69,6 +72,7 @@ class App extends Component {
                                     <Route exact path='/login' render={() => <Login location={location}
                                                                                     gantiNama={nama => this.changeFullName(nama)}/>}
                                            onEnter={{state: {afterRegister: false}}} key="login"/>
+                                    <Route exact path="/about" component={AboutUs} key="about"/>
                                     <Route exact path='/register' render={() => <Register/>} key="register"/>
                                 </Switch>
                             </RoutesContainer>

@@ -10,11 +10,9 @@ import Footer from "./Footer/Footer";
 class Landing extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            renderIntro: false
-        }
     }
     render() {
+        document.body.style.background = "white";
         return (
             <div>
                 <LandingHero/>

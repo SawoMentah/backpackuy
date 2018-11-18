@@ -179,6 +179,33 @@ h2 {
     font-weight: 300;
 }
 
+.cardAnggota {
+    width: 100%;
+    position: relative;
+    padding: 16px;
+    min-height: 200px;
+    border-radius: 2px;
+    margin-bottom: 18px;
+}
+
+.cardAnggota img {
+    display: block;
+    margin: 0 auto;
+}
+
+.cardAnggota h4 {
+    margin-top: 36px;
+    text-align: center;
+    font-weight: 700;
+    color: rgb(79, 79, 79);
+    font-variant-caps: all-petite-caps;
+    margin-bottom: 12px;
+}
+
+.cardAnggota p {
+    text-align: center;
+    font-weight: 300;
+}
 .carouselLandingContainer {
     margin-bottom: 120px;
 }
@@ -264,6 +291,17 @@ h2 {
     transition: 0.4s;
 }
 
+.landingLastContainer button:focus {
+    margin-top: 24px;
+    border: 2px solid #fbc531 !important;
+    background: #fbc531;
+    border-radius: 5px !important;
+    color: white;
+    padding: 16px;
+    font-size: 20px;
+    font-weight: 700;
+    transition: 0.4s;
+}
 .landingLastContainer p {
     text-align: center;
 }
@@ -342,18 +380,26 @@ h2 {
     height: 100%;
     background: white;
     width: 80px;
+    z-index: 999;
     box-shadow: 1px 0 20px rgba(0, 0, 0, 0.01);
 }
 
 .contentSidebar {
-    text-align: center;
     position: relative;
+    margin-left: 27px;
 }
 
-.contentSidebar svg {
-    fill: #fbc531;
+.contentSidebar div {
     margin-top: 200px;
+}
 
+.contentSidebar div:hover {
+    cursor: pointer;
+}
+
+.logoutButton {
+    position: fixed;
+    bottom: 6%;
 }
 /*Container Main*/
 .containerMain {
@@ -441,8 +487,20 @@ h2 {
     background: url("../images/herobg.jpg");
 }
 
+.plansBg2 {
+    height: 50%;
+    border-radius: 0 0 8px 8px;
+    background-size: cover;
+    background-position: top;
+    background: white;
+}
+
 .modal-dialog {
     max-width: 1070px;
+}
+
+.modalDelete {
+    max-width: 300px;
 }
 
 .modalContainer {
@@ -460,7 +518,6 @@ h2 {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    background: url("../images/herobg2.jpg");
     position: relative;
 }
 
@@ -545,6 +602,46 @@ h2 {
     left: 50%;
     transform: translate(-50%, 0);
 }
+
+.mainDetail {
+    max-width: 1400px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.sidebarRightContent {
+    margin: 32px;
+}
+
+.sidebarRightContent h3 {
+    letter-spacing: 1px;
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 32px;
+}
+
+.rightDesc {
+    margin-bottom: 32px;
+}
+
+.rightDesc h4 {
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 1px;
+    font-variant-caps: all-petite-caps;
+    margin-bottom: 8px;
+}
+
+.rightDesc h6 {
+    font-weight: 700;
+    font-size: 20px;
+    color: rgb(79, 79, 79);
+}
+
+.rightDesc p {
+    color: #8c8c8c;
+    font-weight: 300;
+}
 /*Keyframaes*/
 @keyframes animasiBg {
     0% {
@@ -604,5 +701,19 @@ h2 {
         height: 100%;
         background: #262F3D;
         width: 250px;
+    }
+
+    .sidebarRight {
+        margin-right: -350px;
+        width: 350px;
+        position: fixed;
+        height: 100vh;
+        background: white;
+        right: 0;
+    }
+
+    .mainDetail {
+        max-width: 99%;
+        overflow: auto;
     }
 }

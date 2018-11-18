@@ -1,5 +1,5 @@
 import React from 'react';
-import {colors} from "../Constant/LandingConstant";
+import {colors} from "../Constant/Constant";
 import illustration1 from '../../assets/images/whatis.png'
 import posed from "react-pose";
 

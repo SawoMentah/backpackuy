@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import '../../assets/css/style.css'
 
+const profilLocal = JSON.parse(localStorage.getItem("profil"));
+
 class Navbar extends Component {
     renderDashboardNav() {
-        if (localStorage.getItem("profil")) {
+        if (this.props.nama !== '' || JSON.parse(localStorage.getItem("profil")) !== null) {
             return (
                 <li className={`nav-item ${this.props.dashboard ? "active" : ""}`}>
                     <Link to="/dashboard" className="nav-link" href="#"><h6>Dashboard</h6></Link>
@@ -12,13 +14,27 @@ class Navbar extends Component {
             )
         }
     }
-    render() {
-        console.log(JSON.parse(localStorage.getItem("profil")));
-        console.log();
-        let namaku;
-        if (localStorage.getItem("profil")) {
-            namaku = JSON.parse(localStorage.getItem("profil")).data.fullName;
+
+    renderNameNav() {
+        if (this.props.nama !== '' || JSON.parse(localStorage.getItem("profil")) !== null) {
+            return (
+                <li className={`nav-item ${this.props.login ? "active" : ""}`}>
+                    <Link to="/" className="nav-link"><h6
+                        className="nameNavbar">{JSON.parse(localStorage.getItem("profil")).data.fullName}</h6>
+                    </Link>
+                </li>
+            )
+        } else {
+            return (
+                <li className={`nav-item ${this.props.login ? "active" : ""}`}>
+                    <Link to="/login" className="nav-link" href="#"><h6>Login</h6></Link>
+                </li>
+            )
         }
+
+    }
+    render() {
+
         return (
             <nav className="navigationBarContainer navbar sticky-top navbar-expand-lg navbar-light bg-light ">
                 <div className="container-fluid">
@@ -34,13 +50,9 @@ class Navbar extends Component {
                             </li>
                             {this.renderDashboardNav()}
                             <li className={`nav-item ${this.props.about ? "active" : ""}`}>
-                                <Link to="/dashboard" className="nav-link" href="#"><h6>About Us</h6></Link>
+                                <Link to="/about" className="nav-link" href="#"><h6>About Us</h6></Link>
                             </li>
-                            <li className={`nav-item ${this.props.login ? "active" : ""}`}>
-                                {localStorage.getItem("profil") ? <Link to="/" className="nav-link"><h6
-                                        className="nameNavbar">{namaku ? namaku : this.props.nama}</h6></Link> :
-                                    <Link to="/login" className="nav-link" href="#"><h6>Login</h6></Link>}
-                            </li>
+                            {this.renderNameNav()}
                         </ul>
                     </div>
                 </div>

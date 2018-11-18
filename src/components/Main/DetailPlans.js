@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Sidebar from "../Sidebar/Sidebar";
 import GridLayout from 'react-grid-layout';
 import axios from "axios";
-import {BASE_URL} from "../Constant/LandingConstant";
+import {BASE_URL} from "../Constant/Constant";
 import {Link, Redirect} from "react-router-dom";
 import RightBar from "../Sidebar/RightBar";
 
@@ -48,11 +48,22 @@ class DetailPlans extends Component {
         let layout;
         if (localStorage.getItem("layoutIni")) {
             console.log(localStorage.getItem("layoutIni"));
-            layout = JSON.parse(localStorage.getItem("layoutIni"));
+            layout = [
+                {i: '1', x: 0, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+                {i: '2', x: 1, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+                {i: '3', x: 2, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+                {i: '4', x: 3, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+                {i: '5', x: 0, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
+                {i: '6', x: 1, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
+            ];
         } else {
             layout = [
-                {i: '1', x: 0, y: 0, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
-                {i: '2', x: 1, y: 0, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
+                {i: '1', x: 0, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+                {i: '2', x: 1, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+                {i: '3', x: 2, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+                {i: '4', x: 3, y: 0, w: 1, h: 1, minW: 1, minH: 1, maxH: 2, static: true},
+                {i: '5', x: 0, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
+                {i: '6', x: 1, y: 1, w: 1, h: 2, minW: 1, minH: 2, maxH: 2},
             ];
             localStorage.setItem("layoutIni", layout)
         }
@@ -60,7 +71,7 @@ class DetailPlans extends Component {
             <div style={{background: "#eee", minHeight: "100vh"}}>
                 <Sidebar gantiLagi={nama => this.props.gantiNama(nama)}/>
                 <RightBar/>
-                <div className="containerMain" style={{marginRight: "380px"}}>
+                <div className="containerMain">
                     <section className="headerDetail">
                         <Link to="/dashboard">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="#5e5e5e" width="30" height="30"
@@ -72,41 +83,57 @@ class DetailPlans extends Component {
                     </section>
 
                     <section className="mainDetail">
-                        <div className="row" style={{width: window.innerWidth - 520}}>
-                            <div className="col-3">
-                                <h2>Day 1</h2>
-                            </div>
-                            <div className="col-3">
-                                <h2>Day 2</h2>
-                            </div>
-                            <div className="col-3">
-                                <h2>Day 3</h2>
-                            </div>
-                            <div className="col-3">
-                                <h2>Day 4</h2>
-                            </div>
-                        </div>
-                        <GridLayout classname="layout container" layout={layout} cols={4} rowHeight={200}
-                                    width={window.innerWidth - 520} height={900}
+                        <GridLayout classname="layout container" layout={layout} cols={4} rowHeight={100}
+                                    width={window.innerWidth - 520}
                                     margin={[16, 16]}
                                     isResizable={false}
                                     onLayoutChange={(layout) => {
-                                        console.log(localStorage.getItem("layoutIni"));
+                                        console.log(layout);
+                                        // console.log(JSON.parse(localStorage.getItem("layoutIni")));
                                         localStorage.setItem("layoutIni", JSON.stringify(layout))
                                     }}
                                     style={{maxHeight: "900px"}}>
                             <div key="1">
-                                <div className="cardPlanTimeline">
+                                <div>
+                                    <h2>Day 1</h2>
                                 </div>
                             </div>
                             <div key="2">
+                                <div>
+                                    <h2>Day 1</h2>
+                                </div>
+                            </div>
+                            <div key="3">
+                                <div>
+                                    <div>
+                                        <h2>Day 3</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div key="4">
+                                <div>
+                                    <div>
+                                        <h2>Day 4</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div key="5">
                                 <div className="cardPlanTimeline">
                                     <div className="bgCardPlan">
 
                                     </div>
-                                    <span>Halo</span>
+                                    <span>Halo 5</span>
                                 </div>
                             </div>
+                            <div key="6">
+                                <div className="cardPlanTimeline">
+                                    <div className="bgCardPlan">
+
+                                    </div>
+                                    <span>Halo 6</span>
+                                </div>
+                            </div>
+
                         </GridLayout>
                     </section>
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BASE_URL, colors} from "../Constant/LandingConstant";
+import {BASE_URL, colors} from "../Constant/Constant";
 import posed from 'react-pose';
 import Footer from "../Footer/Footer";
 import axios from 'axios';
